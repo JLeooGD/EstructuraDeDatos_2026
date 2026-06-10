@@ -11,7 +11,7 @@ namespace EstructuraDeDatos2026
         public double Precio { get; set; }
         public int Cantidad { get; set; }
         public Producto(int id, string nombre, double precio, int cantidad)
-        { // Validando el Entregable Bimestral 3 de Estructura de Datos
+        {
             ID = id;
             Nombre = nombre;
             Precio = precio;
