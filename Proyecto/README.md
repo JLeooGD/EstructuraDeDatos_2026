@@ -215,8 +215,8 @@ Agosto 2026
 | Fase       | Fecha               |
 | ---------- | ------------------- |
 | **Fase 1** | 2 de agosto de 2026 |
-| **Fase 2** | Agosto 2026         |
-| **Fase 3** | Agosto 2026         |
+| **Fase 2** | 2 de agosto 2026    |
+| **Fase 3** | 2 de agosto 2026    |
 
 ```
 ```
