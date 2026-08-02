@@ -1,1 +1,18 @@
 .DS_Store
+# .NET build artifacts
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+*.swp
+*.tmp
+*.temp
+
+# OS files
+Thumbs.db
+EOF
