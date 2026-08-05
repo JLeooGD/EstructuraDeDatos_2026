@@ -1,12 +1,15 @@
-# DataCore - Proyecto de Estructuras de Datos
+# DataCore - Proyecto de Estructuras de Datos (v4.0)
+
 ## 📋 Descripción General
-Proyecto final para la asignatura de **Estructuras de Datos** en **UNITEC**. Implementa tres estructuras fundamentales: **Selection Sort**, **QuickSort** y **Lista Simplemente Enlazada**, con instrumentación de métricas reales y gestión de memoria dinámica en Heap.
+
+Proyecto final para la asignatura de **Estructuras de Datos** en **UNITEC**. Implementa cuatro estructuras y algoritmos fundamentales: **Selection Sort**, **QuickSort**, **Lista Simplemente Enlazada** y **Búsqueda Binaria Indexada**, con un menú interactivo completo que integra todas las funcionalidades.
 
 | Fase       | Estructura/Algoritmo       | Complejidad         | Característica principal        |
 | ---------- | -------------------------- | ------------------- | ------------------------------- |
 | **Fase 1** | Selection Sort             | O(n²)               | Mínimo de intercambios (O(n))   |
 | **Fase 2** | QuickSort                  | O(n log n) promedio | Mediana de tres + InsertionSort |
 | **Fase 3** | Lista Simplemente Enlazada | O(n)                | Memoria dinámica en Heap        |
+| **Fase 4** | Búsqueda Binaria Indexada  | O(log n)            | Menú interactivo + índice       |
 
 ---
 
@@ -34,24 +37,35 @@ EDD/
 │   │
 │   ├── Fase2_DataCore/              # FASE 2: QUICKSORT
 │   │   ├── DataCore.csproj
-│   │   ├── RegistroDatos.cs         # Reutilizado de Fase 1
-│   │   ├── SelectionSort.cs         # Reutilizado de Fase 1
+│   │   ├── RegistroDatos.cs         # Reutilizado
+│   │   ├── SelectionSort.cs         # Reutilizado
 │   │   ├── QuickSort.cs             # QuickSort + mediana de tres
 │   │   ├── Benchmark.cs             # Benchmark comparativo
 │   │   └── Program.cs               # Orquestador (10,000 registros)
 │   │
-│   └── Fase3_DataCore/              # FASE 3: LISTA ENLAZADA
+│   ├── Fase3_DataCore/              # FASE 3: LISTA ENLAZADA
+│   │   ├── DataCore.csproj
+│   │   ├── RegistroDatos.cs         # Reutilizado
+│   │   ├── SelectionSort.cs         # Reutilizado
+│   │   ├── QuickSort.cs             # Reutilizado
+│   │   ├── NodoRegistro.cs          # Nodo de la lista enlazada
+│   │   ├── TablaDinamica.cs         # Controlador de la lista
+│   │   └── Program.cs               # Orquestador (15 registros)
+│   │
+│   └── Fase4_DataCore/              # FASE 4: INTEGRACIÓN TOTAL
 │       ├── DataCore.csproj
-│       ├── RegistroDatos.cs         # Reutilizado de Fase 1
-│       ├── SelectionSort.cs         # Reutilizado de Fase 1
-│       ├── QuickSort.cs             # Reutilizado de Fase 2
-│       ├── NodoRegistro.cs          # Nodo de la lista enlazada
-│       ├── TablaDinamica.cs         # Controlador de la lista
-│       └── Program.cs               # Orquestador (15 registros)
+│       ├── RegistroDatos.cs         # Reutilizado (Fase 1)
+│       ├── SelectionSort.cs         # Reutilizado (Fase 1)
+│       ├── QuickSort.cs             # Reutilizado (Fase 2)
+│       ├── TablaDinamica.cs         # Reutilizado (Fase 3)
+│       ├── NodoRegistro.cs          # Reutilizado (Fase 3)
+│       ├── BusquedaBinaria.cs       # Búsqueda binaria O(log n)
+│       └── Program.cs               # Menú interactivo CLI
 │
 ├── Sustento_Teorico_Fase1.docx      # Teoría Fase 1
 ├── Sustento_Teorico_Fase2.docx      # Teoría Fase 2
 ├── Sustento_Teorico_Fase3.docx      # Teoría Fase 3
+├── Sustento_Teorico_Fase4.docx      # Teoría Fase 4
 └── README.md                        # Este archivo
 ```
 
@@ -59,27 +73,30 @@ EDD/
 
 ## 🚀 Cómo ejecutar
 
-### Fase 1: Selection Sort
+### Fase 4: DataCore v4.0 (Menú interactivo completo)
 
 ```bash
-cd proyecto/Fase1_DataCore
+# Navegar a la carpeta de la Fase 4
+cd proyecto/Fase4_DataCore
+
+# Compilar
 dotnet build
+
+# Ejecutar
 dotnet run
 ```
 
-### Fase 2: QuickSort (Benchmark comparativo)
-```bash
-cd proyecto/Fase2_DataCore
-dotnet build
-dotnet run
-```
-
-### Fase 3: Lista Simplemente Enlazada
+### Fases individuales
 
 ```bash
-cd proyecto/Fase3_DataCore
-dotnet build
-dotnet run
+# Fase 1: Selection Sort
+cd proyecto/Fase1_DataCore && dotnet run
+
+# Fase 2: QuickSort (Benchmark)
+cd proyecto/Fase2_DataCore && dotnet run
+
+# Fase 3: Lista Enlazada
+cd proyecto/Fase3_DataCore && dotnet run
 ```
 
 ---
@@ -112,6 +129,16 @@ dotnet run
 | **Estructura**           | Lista enlazada en Heap |
 | **Ordenamiento**         | QuickSort (Fase 2)     |
 
+### Fase 4: DataCore v4.0
+
+| Característica                | Descripción                                                     |
+| ----------------------------- | --------------------------------------------------------------- |
+| **Menú interactivo**          | 6 opciones: Insertar, Eliminar, Mostrar, Indexar, Buscar, Salir |
+| **Búsqueda binaria**          | O(log n) sobre arreglo ordenado                                 |
+| **Contador de comparaciones** | Muestra cuántas comparaciones realizó la búsqueda               |
+| **Manejo de errores**         | `try-catch` individual por opción + `int.TryParse`              |
+| **Casos borde**               | Lista vacía, elemento no encontrado, entrada inválida           |
+
 ---
 
 ## 🔧 Decisiones técnicas
@@ -134,7 +161,13 @@ dotnet run
 * **Memoria dinámica:** Nodos alojados en el Heap con `new NodoRegistro()`
 * **Operaciones:** `InsertarInicio()` O(1), `InsertarFinal()` O(n), `EliminarPorId()` O(n)
 * **Interoperabilidad:** `ObtenerComoArreglo()` como puente con algoritmos de Fases 1 y 2
-* **Control:** `TablaDinamica` administra cabeza y contador
+
+### Fase 4: Integración total
+
+* **Búsqueda binaria:** Implementada sobre arreglo ordenado con contador de comparaciones
+* **Menú CLI:** Bucle `do-while` con validación de entrada y pausas para mejorar UX
+* **Indexación:** Extracción de la lista enlazada a arreglo + ordenamiento con QuickSort
+* **Manejo de excepciones:** Captura específica por opción (`FormatException`, `NullReferenceException`, etc.)
 
 ---
 
@@ -150,7 +183,6 @@ dotnet run
 2. **Eficiencia de Intercambios en Selection Sort**
 
    * Complejidad: O(n²) comparaciones, O(n) intercambios
-   * Ideal cuando el costo de escritura es alto
 
 ### Fase 2
 
@@ -168,37 +200,45 @@ dotnet run
 
 1. **Memoria Heap vs Arreglos Estáticos**
 
-   * Arreglos: bloque contiguo fijo (desperdicio o desbordamiento)
+   * Arreglos: bloque contiguo fijo
    * Listas: nodos individuales (crecimiento dinámico)
 
-2. **Complejidad de Operaciones**
-
-   * Acceso por índice: O(1) en arreglos, O(n) en listas
-   * Inserción al inicio: O(n) en arreglos, O(1) en listas
-
-3. **Stack vs Heap en Nodos**
+2. **Stack vs Heap en Nodos**
 
    * Referencia en Stack, objeto en Heap
    * Garbage Collector libera nodos sin referencias
+
+### Fase 4
+
+1. **La Necesidad del Índice**
+
+   * La lista enlazada no permite acceso aleatorio O(1)
+   * Se extrae a arreglo ordenado para búsqueda binaria
+
+2. **O(n) vs O(log n)**
+
+   * Para 1,000,000 registros: lineal = 1,000,000 comparaciones; binaria ≈ 20 comparaciones
+
+3. **Git Flow y main**
+
+   * Ramas independientes aíslan desarrollo y protegen `main`
 
 ---
 
 ## ✅ Estado del proyecto
 
-| Fase       | Compilación | Ejecución | Métricas | Teoría |
-| ---------- | ----------- | --------- | -------- | ------ |
-| **Fase 1** | ✅           | ✅         | ✅        | ✅      |
-| **Fase 2** | ✅           | ✅         | ✅        | ✅      |
-| **Fase 3** | ✅           | ✅         | ✅        | ✅      |
+| Fase       | Compilación | Ejecución | Métricas | Teoría | Menú interactivo |
+| ---------- | ----------- | --------- | -------- | ------ | ---------------- |
+| **Fase 1** | ✅           | ✅         | ✅        | ✅      | ❌                |
+| **Fase 2** | ✅           | ✅         | ✅        | ✅      | ❌                |
+| **Fase 3** | ✅           | ✅         | ✅        | ✅      | ❌                |
+| **Fase 4** | ✅           | ✅         | ✅        | ✅      | ✅                |
 
 ---
 
 ## 🔗 Enlaces
 
 * [Repositorio en GitHub](https://github.com/JLeooGD/EstructuraDeDatos_2026)
-* [Pull Request Fase 1](https://github.com/JLeooGD/EstructuraDeDatos_2026/pulls)
-* [Pull Request Fase 2](https://github.com/JLeooGD/EstructuraDeDatos_2026/pulls)
-* [Pull Request Fase 3](https://github.com/JLeooGD/EstructuraDeDatos_2026/pulls)
 
 ---
 
@@ -215,8 +255,9 @@ Agosto 2026
 | Fase       | Fecha               |
 | ---------- | ------------------- |
 | **Fase 1** | 2 de agosto de 2026 |
-| **Fase 2** | 2 de agosto 2026    |
-| **Fase 3** | 2 de agosto 2026    |
+| **Fase 2** | Agosto 2026         |
+| **Fase 3** | Agosto 2026         |
+| **Fase 4** | Agosto 2026         |
 
 ```
 ```
